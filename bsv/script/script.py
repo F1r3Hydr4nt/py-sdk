@@ -120,6 +120,7 @@ class Script:
         i = 0
         while i < len(tokens):
             token = tokens[i]
+            # Highlighting this line, can be removed after standardisation?
             token = 'OP_0' if token == 'OP_FALSE' else token
             opcode: Optional[str] = None
             opcode_value: Optional[bytes] = None

@@ -113,7 +113,7 @@ class OpReturn(ScriptTemplate):
         return self.__str__()
 
     def lock(self, pushdatas: List[Union[str, bytes]]) -> Script:
-        script: bytes = OpCode.OP_FALSE + OpCode.OP_RETURN
+        script: bytes = OpCode.OP_0 + OpCode.OP_RETURN
         for pushdata in pushdatas:
             if isinstance(pushdata, str):
                 pushdata_bytes: bytes = pushdata.encode("utf-8")

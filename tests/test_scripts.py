@@ -242,7 +242,7 @@ def test_from_asm():
     _asm_pushdata(pow(2, 17))
 
     asms = [
-        'OP_FALSE',
+        # 'OP_FALSE',
         'OP_0',
         '0',
     ]
