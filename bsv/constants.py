@@ -146,12 +146,12 @@ class OpCode(bytes, Enum):
     https://wiki.bitcoinsv.io/index.php/Opcodes_used_in_Bitcoin_Script
     """
     OP_0 = b'\x00'
-    OP_FALSE = b'\x00'
+    # OP_FALSE = b'\x00'
     OP_PUSHDATA1 = b'\x4c'
     OP_PUSHDATA2 = b'\x4d'
     OP_PUSHDATA4 = b'\x4e'
     OP_1NEGATE = b'\x4f'
-    OP_TRUE = b'\x51'
+    # OP_TRUE = b'\x51'
     OP_1 = b'\x51'
     OP_2 = b'\x52'
     OP_3 = b'\x53'

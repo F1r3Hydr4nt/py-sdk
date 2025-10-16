@@ -1,4 +1,4 @@
-import unittest
+import pytest
 from unittest.mock import MagicMock, patch
 from typing import Union, List
 
@@ -49,10 +49,11 @@ class TransactionBroadcaster:
 
 
 # ユニットテスト
-class TestTransactionBroadcaster(unittest.TestCase):
-    def setUp(self):
+class TestTransactionBroadcaster:
+    def setup_method(self):
         self.broadcaster = TransactionBroadcaster()
 
+    @pytest.mark.asyncio
     async def test_all_inputs_have_source_transaction(self):
         # すべての入力にsource_transactionがある場合
         inputs = [
@@ -65,8 +66,9 @@ class TestTransactionBroadcaster(unittest.TestCase):
         result = await self.broadcaster.broadcast(tx)
 
         # EFフォーマットが使われていることを確認
-        self.assertEqual(result["data"]["rawTx"], "ef_formatted_hex_data")
+        assert result["data"]["rawTx"] == "ef_formatted_hex_data"
 
+    @pytest.mark.asyncio
     async def test_some_inputs_missing_source_transaction(self):
         # 一部の入力にsource_transactionがない場合
         inputs = [
@@ -79,8 +81,9 @@ class TestTransactionBroadcaster(unittest.TestCase):
         result = await self.broadcaster.broadcast(tx)
 
         # 通常のhexフォーマットが使われていることを確認
-        self.assertEqual(result["data"]["rawTx"], "normal_hex_data")
+        assert result["data"]["rawTx"] == "normal_hex_data"
 
+    @pytest.mark.asyncio
     async def test_no_inputs_have_source_transaction(self):
         # すべての入力にsource_transactionがない場合
         inputs = [
@@ -93,17 +96,4 @@ class TestTransactionBroadcaster(unittest.TestCase):
         result = await self.broadcaster.broadcast(tx)
 
         # 通常のhexフォーマットが使われていることを確認
-        self.assertEqual(result["data"]["rawTx"], "normal_hex_data")
-
-
-# 非同期テストを実行するためのヘルパー関数
-import asyncio
-
-
-def run_async_test(test_case):
-    async_test = getattr(test_case, test_case._testMethodName)
-    asyncio.run(async_test())
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert result["data"]["rawTx"] == "normal_hex_data"
